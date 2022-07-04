@@ -212,3 +212,9 @@ header input {
 .located {
   border-bottom: 2px solid #005EFF;
 }
+
+/********** custom ***************************************************/
+
+.done {
+  text-decoration: line-through;
+}
