@@ -66,7 +66,7 @@ function setTodoData() {
             // todoForm.resetForm()
         }
     };
-    const editTodo = (editMode) => {
+    const editTodo = (editTodo) => {
         update((datas) => {
             const setData = datas.todoLists.map((todo) => {
                 if (todo.id === editTodo.id) {
