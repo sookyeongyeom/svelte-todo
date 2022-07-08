@@ -1,33 +1,25 @@
 <script>
+    import { todos } from '../store';
+
     export let todo;
-    export let handleCheckTodo;
-    export let handleRemoveTodo;
-    export let editMode;
-    export let handleChangeEditMode;
-    export let handleEditTodoItem;
-    export let handleEditInputKeyup;
+
+    const handleCheckTodo = () => todos.checkTodo(todo.id);
+    const handleChangeTodoEditMode = () => todos.changeTodoEditMode(todo.id);
+    const handleEditTodo = () => {
+        todos.editTodo(todo);
+        todos.closeTodoEditMode();
+    };
+    const handleRemoveTodo = () => todos.removeTodo(todo.id);
 </script>
 
-<input
-    type="checkbox"
-    bind:checked={todo.done}
-    on:click={() => handleCheckTodo(todo.id)}
-/>
-{#if editMode === todo.id}
-    <input
-        type="text"
-        bind:value={todo.content}
-        on:focusout={() => handleEditTodoItem(todo)}
-        on:keyup={(e) => handleEditInputKeyup(e, todo)}
-    />
+<input type="checkbox" bind:checked={todo.done} on:click={handleCheckTodo} />
+{#if $todos.editMode === todo.id}
+    <input type="text" bind:value={todo.content} on:focusout={handleEditTodo} />
 {:else}
-    <span
-        class:done={todo.done}
-        on:dblclick={() => handleChangeEditMode(todo.id)}
-    >
+    <span class:done={todo.done} on:dblclick={handleChangeTodoEditMode}>
         {todo.content}
     </span>
 {/if}
 <!-- <span class:done={todo.done}>{todo.content}</span> -->
 <!-- <span>{todo.done}</span> -->
-<a href="#null" on:click={() => handleRemoveTodo(todo.id)}>X</a>
+<a href="#null" on:click={handleRemoveTodo}>X</a>
